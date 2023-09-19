@@ -16,25 +16,22 @@ Simple Shell is a minimalistic command-line shell program written in C. It provi
 ## Getting Started
 
 To compile and run the Simple Shell:
-
 1. Clone the repository:
-
+git clone https://github.com/1Mashilo/simple_shell.git
 
 2. Compile the code:
-
+cd simple_shell
+make
 
 3. Run the shell:
-
+./hsh
 
 ## Usage
 
 Once the Simple Shell is running, you can use it like a basic command-line shell. Here are some example commands:
 
 - Run external commands:
-
-
 - Use built-in commands:
-
 
 ## Contributing
 
