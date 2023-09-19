@@ -10,7 +10,6 @@
 int main(int argc, char *argv[])
 {
 char *program_name;
-int exit_status;
 int input_fd;
 
 if (argc > 0)
@@ -25,11 +24,8 @@ perror(program_name);
 return (1);
 }
 
-exit_status = execute_shell(input_fd);
+return (execute_shell(input_fd));
 
-close(input_fd);
-
-return (exit_status);
 }
 else
 {
