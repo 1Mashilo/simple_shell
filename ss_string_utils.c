@@ -59,29 +59,13 @@ return (*(unsigned char *)string1 - *(unsigned char *)string2);
 }
 
 /**
-* ss_strdup - Duplicate a string
-* * @string: The string to duplicate
-* Return: A pointer to the newly allocated duplicate string.
-*/
-char *ss_strdup(const char *string)
-{
-size_t len = ss_strlen(string);
-char *new_string = malloc(len + 1);
-
-if (!new_string)
-return (NULL);
-
-return (ss_strcpy(new_string, string));
-}
-
-/**
 * ss_strconcat - Concatenate two strings with an optional separator.
 * @string1: The first string.
 * @sep: The separator to add between string1 and string2 (can be NULL).
 * @string2: The second string.
 *
-* Return: The concatenated string or NULL on failure.
-* Caller must free the result.
+* Return: The concatenated string or NULL on failure. Caller
+* must free the result.
 */
 char *ss_strconcat(const char *string1, const char *sep, const char *string2)
 {
@@ -107,3 +91,29 @@ strcat(result, string2);
 
 return (result);
 }
+
+/**
+* ss_strcat - Concatenates two strings.
+* @string1: The first string to concatenate.
+* @string2: The second string to concatenate.
+*
+* Return: A newly allocated string containing the concatenation
+*         of string1 and string2, or NULL on failure.
+*/
+char *ss_strcat(const char *string1, const char *string2)
+{
+char *result;
+size_t len1 = ss_strlen(string1);
+size_t len2 = ss_strlen(string2);
+
+result = malloc(len1 + len2 + 1);
+
+if (!result)
+return (NULL);
+
+ss_strcpy(result, string1);
+ss_strcpy(result + len1, string2);
+
+return (result);
+}
+

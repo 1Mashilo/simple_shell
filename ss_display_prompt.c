@@ -6,7 +6,9 @@
 * @output_line: Pointer to a char pointer where the
 * command line will be stored.
 *
-* Return: The number of characters read (including '\0'), or -1 on failure.
+* Return:
+*   - The number of characters read (including '\0'), or -1 on Ctrl+D.
+*   - -1 on failure.
 */
 ssize_t read_command_line(int file_descriptor, char **output_line)
 {
@@ -19,10 +21,24 @@ size_t line_length;
 
 read_result = getline(&line_buffer, &line_buffer_size, stdin);
 
-if (read_result != -1)
+if (read_result == -1)
 {
+
+if (feof(stdin))
+{
+free(line_buffer);
+return (-1);
+}
+else
+{
+perror("getline");
+free(line_buffer); 
+exit(EXIT_FAILURE); 
+}
+}
+
 line_length = ss_strlen(line_buffer);
-if (line_length > 0 && line_buffer[line_length - 1] == '\n')
+if (line_length > 0 && line_buffer[line_length - 1] == '\n') 
 {
 line_buffer[line_length - 1] = '\0';
 }
@@ -33,7 +49,6 @@ perror("malloc");
 exit(EXIT_FAILURE);
 }
 ss_strcpy(*output_line, line_buffer);
-}
 
 free(line_buffer);
 

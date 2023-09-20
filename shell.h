@@ -30,6 +30,8 @@ struct env_node *next;
 }
 env_node_t;
 
+int interactive_shell(void);
+
 char *ss_strdup(const char *string);
 char *ss_strconcat(const char *string1, const char *sep, const char *string2);
 char *ss_strcpy(char *dest, const char *src);
@@ -38,6 +40,8 @@ int ss_strcmp(const char *string1, const char *string2);
 int ss_strncmp(const char *string1, const char *string2, size_t n);
 void free_parsed_input(char **parsed_input);
 char **env_list_to_char_array(env_node_t *env_list);
+char *ss_strcat(const char *string1, const char *string2);
+
 
 void ss_exit(void);
 int ss_find_builtin(char **argv, env_node_t *env_list);
@@ -53,7 +57,7 @@ int ss_command(const char *file_path);
 size_t count_words(const char *str);
 
 int execute_shell(int input_fd);
-void handle_input(const char *command_line, env_node_t *env_list);
+int handle_input(char **parsed_input, env_node_t *env_list);
 char **ss_parse_input(const char *input);
 char *ss_find_path(const char *pathstring, const char *command);
 void s_builtin(char **parsed_input, env_node_t *env_list, int *builtin_return);

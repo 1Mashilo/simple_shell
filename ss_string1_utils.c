@@ -66,3 +66,21 @@ divisor /= 10;
 
 str[i] = '\0';
 }
+
+
+/**
+* ss_strdup - Duplicate a string
+* * @string: The string to duplicate
+* Return: A pointer to the newly allocated duplicate string.
+*/
+char *ss_strdup(const char *string)
+{
+size_t len = ss_strlen(string);
+char *new_string = malloc(len + 1);
+
+if (!new_string)
+return (NULL);
+
+return (ss_strcpy(new_string, string));
+}
+
