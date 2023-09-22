@@ -220,6 +220,8 @@ char *_strdup(const char *str);
 int _putchar(char c);
 char **splitString(char *str, char *delimiters);
 int _strlen(char *s);
+int bfree(void **);
+void ffree(char **ptr);
 
 
 

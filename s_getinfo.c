@@ -53,7 +53,7 @@ replaceVars(info);
 */
 void free_info(info_t *info, int all)
 {
-free(info->argv);
+ffree(info->argv);
 info->argv = NULL;
 info->path = NULL;
 
@@ -71,10 +71,10 @@ free_list(&(info->history));
 if (info->alias)
 free_list(&(info->alias));
 
-free(info->environ);
+ffree(info->environ);
 info->environ = NULL;
 
-free((void **)info->cmd_buf);
+bfree((void **)info->cmd_buf);
 
 if (info->readfd > 2)
 close(info->readfd);
