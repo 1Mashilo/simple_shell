@@ -92,7 +92,7 @@ info->cmd_buf_type = CMD_NORM;
 }
 
 *current_command = current_position;
-return _strlen(current_position);
+return (_strlen(current_position));
 }
 
 *current_command = command_buffer;
@@ -102,8 +102,8 @@ return (bytes_read);
 /**
 * s_read_buffer - reads a buffer
 * @info: parameter struct
-* @buf: buffer
-* @i: size
+* @buff: buffer
+* @len: size
 *
 * Return: r
 */
@@ -167,11 +167,9 @@ s_strncpy(new_ptr, buffer + buffer_index, buffer_offset - buffer_index + 1);
 line_length += buffer_offset - buffer_index;
 buffer_index = buffer_offset;
 current_ptr = new_ptr;
-
 if (length)
 *length = line_length;
 }
-
 *ptr = current_ptr;
 return (line_length);
 }

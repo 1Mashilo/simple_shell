@@ -1,7 +1,7 @@
 #include "shell.h"
 
 /**
-* shellLoop - main shell loop
+* hsh - main shell loop
 * @info: the parameter & return info struct
 * @argv: the argument vector from main()
 *
@@ -46,7 +46,7 @@ return (builtinResult);
 }
 
 /**
-* find_builtin - finds a builtin command
+* find_buitin - finds a builtin command
 * @info: the parameter & return info struct
 *
 * Return: -1 if builtin not found,

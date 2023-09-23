@@ -83,7 +83,7 @@ _strcat(path, command);
 }
 
 if (isExecutableCommand(info, path))
-return path;
+return (path);
 
 if (!pathString[i])
 break;

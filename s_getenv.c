@@ -15,40 +15,40 @@ info->environment_changed = 0;
 }
 return (info->environment);
 }
- 
+
 /**
- * _unset_environment_variable - Remove an environment variable
- * @info: Structure containing potential arguments. Used to maintain
- * constant function prototype.
- * @var: the string env var property to remove
- * Return: 1 on delete, 0 otherwise
- */
+* _unset_environment_variable - Remove an environment variable
+* @info: Structure containing potential arguments. Used to maintain
+* constant function prototype.
+* @var: the string env var property to remove
+* Return: 1 on delete, 0 otherwise
+*/
 int _unset_environment_variable(info_t *info, char *var)
 {
-    list_t *current_node = info->env;
-    size_t index = 0;
-    char *property;
+list_t *current_node = info->env;
+size_t index = 0;
+char *property;
 
-    if (!current_node || !var)
-        return (0);
+if (!current_node || !var)
+return (0);
 
-    while (current_node)
-    {
-        property = startsWith(current_node->str, var);
+while (current_node)
+{
+property = startsWith(current_node->str, var);
 
-        if (property && *property == '=')
-        {
-            info->env_changed = delete_node_at_index(&(info->env), index);
-            index = 0;
-            current_node = info->env;
-            continue;
-        }
+if (property && *property == '=')
+{
+info->env_changed = delete_node_at_index(&(info->env), index);
+index = 0;
+current_node = info->env;
+continue;
+}
 
-        current_node = current_node->next;
-        index++;
-    }
+current_node = current_node->next;
+index++;
+}
 
-    return (info->env_changed);
+return (info->env_changed);
 }
 
 /**
