@@ -6,7 +6,7 @@ This project is an implementation of a simple shell created as a Milestone Proje
 
 ## COPYRIGHT
 
-Copyright (C) 2022 by Mashilo Kgaladi. All rights reserved.
+Copyright (C) 2023 by Mashilo Kgaladi. All rights reserved.
 
 ## Environment
 
