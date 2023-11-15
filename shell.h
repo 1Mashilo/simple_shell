@@ -12,12 +12,12 @@
 #include <fcntl.h>
 #include <errno.h>
 
-/* Constants for read/write buffers */
+/* for read/write buffers */
 #define READ_BUF_SIZE 1024
 #define WRITE_BUF_SIZE 1024
 #define BUF_FLUSH -1
 
-/* Constants for command chaining */
+/* for command chaining */
 #define CMD_NORM 0
 #define CMD_OR 1
 #define CMD_AND 2
@@ -33,8 +33,6 @@
 #define HIST_MAX 4096
 #define WRITE_BUFFER_SIZE 1024
 #define BUFFER_FLUSH -1
-
-/* External environment variable declaration */
 extern char **environ;
 
 /**
@@ -43,18 +41,19 @@ extern char **environ;
  * @value: The value associated with the alias.
  * @next: Pointer to the next alias in the linked list.
  */
-typedef struct alias
-{
+
+typedef struct alias {
     char *name;
     char *value;
     struct alias *next;
 } alias_t;
 
+
 /**
- * struct liststr - Singly linked list structure.
- * @num: The number field.
- * @str: A string.
- * @next: Pointer to the next node.
+ * struct liststr - singly linked list
+ * @num: the number field
+ * @str: a string
+ * @next: points to the next node
  */
 typedef struct liststr
 {
@@ -64,34 +63,31 @@ typedef struct liststr
 } list_t;
 
 /**
- * struct passinfo - Contains pseudo-arguments to pass into a function,
- * allowing a uniform prototype for a function pointer struct.
- * @history_file: History file path.
- * @history: History linked list.
- * @lineCountFlag: Flag for line count.
- * @err_num: Error code for exit()s.
- * @argv: Array of strings generated from arguments.
- * @path: Current command path.
- * @lineCount: Line count.
- * @histcount: History count.
- * @get_environ: Environment variables.
- * @status: Return status of the last exec'd command.
- * @arguments: Additional arguments.
- * @program_name: Program name.
- * @executable_path: Executable path.
- * @argument_vector: Argument vector.
- * @cmd_buf_type: Command buffer type.
- * @alias: The alias node.
- * @arg: A string generated from getline containing arguments.
- * @env: Linked list environment.
- * @environ: Custom modified copy of environ from linked list env.
- * @fname: The program filename.
- * @argc: The argument count.
- * @environment: Environment variables.
- * @env_changed: Environment change flag.
- * @environment_changed: Environment change flag.
- * @cmd_buf: Command buffer.
- * @readfd: File descriptor for reading.
+ * struct passinfo - contains pseudo-arguments to pass into a function,
+ * allowing a uniform prototype for a function pointer struct
+ * @history_file: history file path
+ * @history: history linked list
+ * @lineCountFlag: flag for line count
+ * @err_num: the error code for exit()s
+ * @argv: array of strings generated from arguments
+ * @path: current command path
+ * @lineCount: line count
+ * @histcount: history count
+ * @get_environ: environment variables
+ * @status: return status of the last exec'd command
+ * @arguments: additional arguments
+ * @program_name: program name
+ * @executable_path: executable path
+ * @argument_vector: argument vector
+ * @cmd_buf_type: command buffer type
+ * @alias:the  alias node
+ * @arg: a string generated from getline containing arguements
+ * @env: linked list environ 
+ * @environ:custom modified copy of environ fromm LL env 
+ * fname: the program filename
+ * @argc:the argument count
+ * @environment: environment variables
+ * @environment_changed: environment change flag
  */
 typedef struct passinfo
 {
@@ -123,7 +119,6 @@ typedef struct passinfo
     int readfd;
 } info_t;
 
-/* Initialization macro for info_t structure */
 #define INFO_INIT \
 { \
     NULL,        /* history_file */ \
@@ -154,16 +149,18 @@ typedef struct passinfo
     0            /* readfd */ \
 }
 
+
 /**
- * struct builtin - Contains a built-in command string and related function.
- * @type: The built-in command string.
- * @func: The associated function.
+ * struct builtin - contains a built-in command string and related function
+ * @type: the built-in command string
+ * @func: the associated function
  */
 typedef struct builtin
 {
     char *type;
     int (*func)(info_t *);
 } builtin_table;
+
 
 /* Main shell function */
 int hsh(info_t *, char **);
@@ -197,25 +194,19 @@ ssize_t s_input_buffer(info_t *info, char **command_buffer, size_t *buffer_lengt
 char *startsWith(const char *haystack, const char *needle);
 char *s_strncpy(char *destination, char *source, int num);
 char *s_strncat(char *destination, char *source, int num);
-
-/* String manipulation functions */
 int stringCompare(char *s1, char *s2);
 int stringLength(char *s);
 char *stringConcatenate(char *dest, char *src);
 char *s_strchr(char *str, char c);
 char **s_get_environment(info_t *info);
-
-/* Environment variable functions */
 int _unset_environment_variable(info_t *info, char *var);
 int s_set_environment_variable(info_t *info, char *variable, char *value);
-
-/* Initialization and memory functions */
 void initialize_info(info_t *info);
 void populate_info(info_t *info, char **av);
 void free_info(info_t *info, int free_environ);
-ssize_t s_get_input_line(info_t *info);
-
-/* Linked list operations */
+ ssize_t s_get_input_line(info_t *info);
+ssize_t s_read_buffer(info_t *info, char *buff, size_t *len);
+ int s_get_line(info_t *info, char **ptr, size_t *length);
 size_t list_len(const list_t *list);
 char **list_to_strings(list_t *head);
 size_t print_list(const list_t *list);
@@ -226,8 +217,6 @@ list_t *add_node_end(list_t **list, const char *str, int num);
 size_t print_list_str(const list_t *list);
 int delete_node_at_index(list_t **list, unsigned int index);
 void free_list(list_t **list);
-
-/* Input and output operations */
 int is_interactive(info_t *info);
 int is_delimiter(char c, char *delimiters);
 int is_alpha(int c);
@@ -236,21 +225,24 @@ int find_buitin(info_t *info);
 void find_cmd(info_t *info);
 void fork_cmd(info_t *info);
 
-/* Standard C library functions */
 int _strlen(char *s);
 int _strcmp(char *string1, char *s2);
 char *_strcat(char *destination, char *src);
 char *_strcpy(char *dest, char *src);
 char *_strdup(const char *str);
 int _putchar(char c);
-
-/* String manipulation and parsing */
 char **splitString(char *str, char *delimiters);
 int _strlen(char *s);
-bfree(void **);
+int bfree(void **);
+void ffree(char **ptr);
 
-/* File I/O functions */
-ssize_t s_read_buffer(info_t *info, char *buff, size_t *len);
+
+
+char *get_history_file(info_t *info);
+int write_history(info_t *info);
+int read_history(info_t *info);
+int build_history_list(info_t *info, char *buf, int linecount);
+int renumber_history(info_t *info);
 int isChainDelimiter(info_t *info, char *buf, size_t *p);
 void checkChain(info_t *info, char *buf, size_t *p, size_t i, size_t len);
 int replaceAlias(info_t *info);
@@ -268,5 +260,6 @@ int isExecutableCommand(info_t *info, char *filePath);
 char *copyCharacters(char *sourceString, int startIndex, int stopIndex);
 char *findExecutablePath(info_t *info, char *pathString, char *command);
 
-#endif
 
+
+#endif
